@@ -171,22 +171,6 @@ class Season:
         self._couple_scenarios = self._recalculate_couple_scenarios()
         if self.verbose:
             print(f"couple scenarios retabulated in {round(t2-t1)} seconds")
-
-    def analyze_scenarios(self):
-        self.remaining_scenario_analysis = defaultdict(dict)
-        for scenario in self.remaining_scenarios:
-            beams = []
-            for scenario_b in self.remaining_scenarios:
-                beams.append(len(scenario & scenario_b))
-            self.remaining_scenario_analysis[scenario]["beams"] = beams
-            self.remaining_scenario_analysis[scenario]["min_beams"] = min(beams)
-            self.remaining_scenario_analysis[scenario]["mean_beams"] = mean(beams)
-            self.remaining_scenario_analysis[scenario]["median_beams"] = median(beams)
-            try:
-                self.remaining_scenario_analysis[scenario]["mode_beams"] = mode(beams)
-            except StatisticsError:
-                self.remaining_scenario_analysis[scenario]["mode_beams"] = None
-        return self.remaining_scenario_analysis
     
     def _apply_truth_booth(self, couple, outcome):
         return self._apply_matchup_ceremony([couple], int(outcome))
